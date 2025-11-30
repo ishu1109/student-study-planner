@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Study Plan</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  <main class="container">
+    <div class="card">
+      <a href="/" class="back-link">← Back</a>
+      <h1>Study Plan</h1>
+
+      <h3>Topics</h3>
+      {% if topics %}
+        <ul class="topics-list">
+          {% for t in topics %}
+            <li>{{ t }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted">No topics parsed.</p>
+      {% endif %}
+
+      <h3>Schedule</h3>
+      {% if schedule %}
+        <table class="table">
+          <thead>
+            <tr><th>Date</th><th>Topics</th></tr>
+          </thead>
+          <tbody>
+            {% for date, topics_on_date in schedule.items() %}
+              <tr>
+                <td class="mono">{{ date }}</td>
+                <td>
+                  {% if topics_on_date is string %}
+                    {{ topics_on_date }}
+                  {% else %}
+                    {% if topics_on_date|length == 0 %}
+                      <span class="muted">No topics</span>
+                    {% else %}
+                      <ul class="small-list">
+                        {% for it in topics_on_date %}
+                          <li>{{ it }}</li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="muted">No structured schedule found.</p>
+      {% endif %}
+
+      <h3>Notes</h3>
+      {% if notes %}
+        <div class="notes-grid">
+          {% if notes is string %}
+            <pre>{{ notes }}</pre>
+          {% else %}
+            {% for topic, note in notes.items() %}
+              <div class="panel">
+                <h4>{{ topic }}</h4>
+                <pre class="note-pre">{{ note }}</pre>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="muted">No notes generated.</p>
+      {% endif %}
+
+      <h3>Quizzes</h3>
+      {% if quizzes %}
+        {% for topic, qlist in quizzes.items() %}
+          <div class="panel">
+            <h4>{{ topic }}</h4>
+            <ol class="quiz-list">
+              {% for q in qlist %}
+                <li>
+                  <div class="qtext"><strong>{{ q.question }}</strong></div>
+                  {% if q.options %}
+                    <ul class="small-list">
+                      {% for opt in q.options %}
+                        <li>{{ opt }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                  <div class="muted small">Answer index: {{ q.answer_index }}</div>
+                </li>
+              {% endfor %}
+            </ol>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="muted">No quizzes generated.</p>
+      {% endif %}
+
+      <hr>
+      <div class="row">
+        <div style="flex:1">
+          <h3>Debug (truncated)</h3>
+          <pre>{{ result_json }}</pre>
+        </div>
+        <div style="flex:1">
+          <h3>Raw output (preview)</h3>
+          <pre>{{ raw }}</pre>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

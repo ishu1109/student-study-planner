@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Student Study Planner & Notes Generator</title>
+
+  <!-- Link to shared stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  <main class="container">
+    <div class="card">
+      <h1>Student Study Planner & Notes Generator</h1>
+      <p class="muted">Paste your syllabus below. Optionally pick an exam date or number of days to plan for.</p>
+
+      <form action="/plan" method="post" id="syllabus-form">
+        <label for="syllabus">Syllabus / Topics</label>
+        <textarea id="syllabus" name="syllabus" placeholder="Paste syllabus or topic list here..." required></textarea>
+
+        <div class="row">
+          <div class="col">
+            <label for="exam_date">Exam date (optional)</label>
+            <input id="exam_date" name="exam_date" type="date" />
+          </div>
+
+          <div class="col" style="max-width:180px">
+            <label for="days">Or number of days to plan (optional)</label>
+            <input id="days" name="days" type="number" min="1" placeholder="e.g. 14" />
+          </div>
+        </div>
+
+        <div class="form-foot">
+          <button class="btn" type="submit">Generate Plan</button>
+          <button class="btn secondary" type="button" id="clear-btn">Clear</button>
+        </div>
+      </form>
+
+      <hr>
+
+      <h3>API</h3>
+      <p class="muted">You can POST JSON to <code>/api/plan</code> with <code>{"syllabus_text":"...","exam_date":"YYYY-MM-DD","days":14}</code></p>
+    </div>
+  </main>
+
+  <script>
+    // Prevent double submission & disable button while waiting
+    document.getElementById('syllabus-form').addEventListener('submit', function(e){
+      const btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Generating…';
+    });
+    document.getElementById('clear-btn').addEventListener('click', function(){
+      document.getElementById('syllabus').value = '';
+      document.getElementById('exam_date').value = '';
+      document.getElementById('days').value = '';
+    });
+  </script>
+</body>
+</html>

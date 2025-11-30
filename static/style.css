@@ -1,0 +1,101 @@
+/* style.css - shared by index.html & plan.html
+   Modern pleasant UI for the Student Planner app
+*/
+
+:root{
+  --bg: #eef2ff;
+  --card: rgba(255,255,255,0.95);
+  --accent: #3b5bdb;
+  --accent-2: #364fc7;
+  --muted: #6c6f76;
+  --line: #e9edf8;
+  --panel: #f8faff;
+  --radius: 12px;
+  --mono: "Courier New", monospace;
+}
+
+/* Base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #f7f9ff 0%, #eef6ff 60%);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+  padding:32px;
+}
+
+/* container & card */
+.container{max-width:980px;margin:0 auto}
+.card{
+  background: var(--card);
+  border-radius: 14px;
+  padding:22px;
+  box-shadow: 0 10px 30px rgba(17,24,39,0.06);
+  border-top: 6px solid var(--accent);
+}
+
+/* links */
+.back-link{display:inline-block;margin-bottom:8px;color:var(--accent-2);text-decoration:none}
+.back-link:hover{text-decoration:underline}
+
+/* headings */
+h1{margin:0 0 6px 0;color:var(--accent);font-size:26px}
+h3{color:var(--accent-2);margin-top:20px;margin-bottom:10px}
+h4{color:#1f3aa6;margin:0 0 6px 0}
+
+/* text */
+.muted{color:var(--muted);font-size:14px}
+.mono{font-family:var(--mono)}
+
+/* form */
+label{display:block;margin:8px 0 6px;font-weight:600;color:#111827}
+textarea, input[type="text"], input[type="date"], input[type="number"], select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,#fff,#fbfdff);
+  font-size:14px;outline:none;
+}
+textarea{min-height:180px;resize:vertical}
+textarea::placeholder,input::placeholder{color:#b7c0e6}
+
+/* layout helpers */
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.col{flex:1;min-width:160px}
+.form-foot{margin-top:12px;display:flex;gap:10px;align-items:center}
+
+/* buttons */
+.btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:700;box-shadow:0 10px 22px rgba(59,91,219,0.14);transition:transform .12s ease,box-shadow .12s ease}
+.btn:hover{transform:translateY(-3px)}
+.btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--line);box-shadow:none}
+
+/* tables */
+.table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+.table th{background: #f1f6ff;color:var(--accent);font-weight:700}
+.table tr:nth-child(even){background:#fbfdff}
+
+/* small lists */
+.small-list{margin:6px 0 10px 16px}
+.topics-list{margin-left:18px}
+
+/* panels & pre */
+.panel{background:var(--panel);padding:12px;border-radius:10px;border:1px solid rgba(59,91,219,0.04);margin-bottom:12px}
+pre{background:#f8fbff;padding:12px;border-radius:8px;overflow:auto;white-space:pre-wrap;border-left:4px solid #91a7ff;font-family:var(--mono);font-size:13px}
+
+/* notes grid */
+.notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.note-pre{white-space:pre-wrap;font-size:13px;line-height:1.4}
+
+/* quiz list styles */
+.quiz-list{margin-left:18px}
+.quiz-list li{margin-bottom:12px}
+
+/* responsive */
+@media (max-width:860px){
+  .notes-grid{grid-template-columns:1fr}
+  .form-foot{flex-direction:column;align-items:stretch}
+}
