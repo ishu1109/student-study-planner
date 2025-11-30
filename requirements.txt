@@ -1,7 +1,8 @@
-Flask
+Flask>=2.2
 gunicorn
 python-dotenv
 crewai==1.6.1
 crewai[google-genai]==1.6.1
 google-generativeai
-
+google-api-python-client
+google-auth
